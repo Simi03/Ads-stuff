@@ -41,36 +41,37 @@ public class MyList extends AbstractList {
     }
 
     @Override
-    public boolean remove(Object o) {
-        if (head == null) return false;
-
-        ListNode current = head;
-        do {
-            if (current.value.equals(o)) {
-                if (current.prev != null) current.prev.next = current.next;
-                if (current.next != null) current.next.prev = current.prev;
-                size--;
-                return true;
-
-            } else {
-                if (current.next == null) return false;
-                current = current.next;
-            }
-        } while (current.next != null);
-
-        return false;
-    }
+	public boolean remove(Object o) {
+		ListNode current = head;
+		while (current != null) {
+			if (current.value.equals(o)) {
+				if (current.prev != null) {
+					current.prev.next = current.next;
+				} else {
+					head = current.next; // removing head
+				}
+				if (current.next != null) {
+					current.next.prev = current.prev;
+				}
+				size--;
+				return true;
+			}
+			current = current.next;
+		}
+		return false;
+	}
 
 
 
     @Override
     public void clear() {
-        super.clear();
+		head = null;
+		size = 0;
     }
 
     @Override
     public boolean isEmpty() {
-        return super.isEmpty();
+        return head == null && size == 0;
     }
 
 
