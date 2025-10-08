@@ -1,22 +1,23 @@
 package ch.zhaw.ads;
 
 public class HilbertServer implements CommandExecutor {
-
     private void drawHilbert(Turtle turtle, int depth, double dist, double angle) {
-        if (depth == 0) {
+        if (depth < 0) return;
 
-        }
-        turtle.turn(-angle);
-        // draw recursive
-        turtle.move(dist);
         turtle.turn(angle);
-        // draw recursive
+        drawHilbert(turtle, depth - 1, dist, -angle);
         turtle.move(dist);
-        // draw recursive
-        turtle.turn(angle);
-        turtle.move(dist);
-        // draw recursive
+
         turtle.turn(-angle);
+        drawHilbert(turtle, depth - 1, dist, angle);
+        turtle.move(dist);
+
+        drawHilbert(turtle, depth - 1, dist, angle);
+        turtle.turn(-angle);
+        turtle.move(dist);
+
+        drawHilbert(turtle, depth - 1, dist, -angle);
+        turtle.turn(angle);
     }
 
 
